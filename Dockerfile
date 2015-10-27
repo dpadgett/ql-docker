@@ -28,11 +28,18 @@ RUN ./steamcmd.sh +login anonymous +app_update 349090 +quit
 RUN ln -s "Steam/steamapps/common/Quake Live Dedicated Server/" ql
 
 # copy over the custom game files
+USER root
 COPY server.sh ql/
+RUN chown quake:quake ql/server.sh
 COPY server.cfg ql/baseq3/
+RUN chown quake:quake ql/baseq3/server.cfg
 COPY mappool_turboca.txt ql/baseq3/
+RUN chown quake:quake ql/baseq3/mappool_turboca.txt
 COPY turboca.factories ql/baseq3/scripts/
+RUN chown -R quake:quake ql/baseq3/scripts
 COPY access.txt .quakelive/30960/baseq3/
+RUN chown -R quake:quake .quakelive
+USER quake
 
 # ports to connect to: 27960 is udp, 28960 is tcp
 EXPOSE 30960 31960
