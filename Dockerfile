@@ -4,7 +4,10 @@ MAINTAINER Dan Padgett <dumbledore3@gmail.com>
 
 RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get install -y libc6:i386 libstdc++6:i386 wget
+RUN apt-get install -y libc6:i386 libstdc++6:i386 wget software-properties-common
+RUN add-apt-repository ppa:fkrull/deadsnakes
+RUN apt-get update
+RUN apt-get install -y python3.5 python3.5-dev git build-essential
 
 RUN useradd -ms /bin/bash quake
 
@@ -40,6 +43,17 @@ RUN chown -R quake:quake ql/baseq3/scripts
 COPY access.txt .quakelive/30960/baseq3/
 RUN chown -R quake:quake .quakelive
 USER quake
+
+# download and install minqlx
+RUN wget https://github.com/MinoMino/minqlx/releases/download/v0.0.1/minqlx_v0.0.1.tar.gz
+RUN cd ql && tar xzf ~/minqlx_v0.0.1.tar.gz
+RUN cd ql && git clone https://github.com/MinoMino/minqlx-plugins.git minqlx/plugins
+COPY install_minqlx_plugins.sh ./
+USER root
+RUN cd ql && ~/install_minqlx_plugins.sh
+USER quake
+COPY configure_minqlx.sh ./
+RUN ./configure_minqlx.sh
 
 # ports to connect to: 27960 is udp, 28960 is tcp
 EXPOSE 30960 31960
