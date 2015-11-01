@@ -61,4 +61,4 @@ RUN ./configure_minqlx.sh
 # ports to connect to: 27960 is udp, 28960 is tcp
 EXPOSE 30960 31960
 
-CMD ql/server.sh 0 > /tmp/qlout 2>&1
+CMD ql/server.sh 0
