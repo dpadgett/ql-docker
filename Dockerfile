@@ -45,18 +45,13 @@ RUN chown -R quake:quake .quakelive
 USER quake
 
 # download and install minqlx
-RUN git clone https://github.com/MinoMino/minqlx.git
-RUN cd minqlx && git checkout develop && make
-RUN wget https://github.com/MinoMino/minqlx/releases/download/v0.0.1/minqlx_v0.0.1.tar.gz
-RUN cd ql && tar xzf ~/minqlx_v0.0.1.tar.gz
-RUN cp minqlx/minqlx.so ql/.
-RUN cd ql && git clone https://github.com/MinoMino/minqlx-plugins.git minqlx/plugins
+RUN wget https://github.com/MinoMino/minqlx/releases/download/v0.0.2/minqlx_v0.0.2.tar.gz
+RUN cd ql && tar xzf ~/minqlx_v0.0.2.tar.gz
+RUN cd ql && git clone https://github.com/MinoMino/minqlx-plugins.git
 COPY install_minqlx_plugins.sh ./
 USER root
 RUN cd ql && ~/install_minqlx_plugins.sh
 USER quake
-COPY configure_minqlx.sh ./
-RUN ./configure_minqlx.sh
 
 # ports to connect to: 27960 is udp, 28960 is tcp
 EXPOSE 30960 31960
