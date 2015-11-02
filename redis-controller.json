@@ -21,12 +21,19 @@
          "spec":{
             "containers":[
                {
-                  "name":"master",
+                  "name":"redis",
                   "image":"redis",
                   "ports":[
                      {
                         "containerPort":6379,
                         "protocol":"TCP"
+                     }
+                  ]
+                  "volumeMounts":[
+                     {
+                        # This name must match the volumes.name below.
+                        "name": "redis-persistent-storage",
+                        "mountPath": "/var/lib/redis"
                      }
                   ]
                }
