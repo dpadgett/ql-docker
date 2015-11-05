@@ -40,9 +40,18 @@ COPY mappool_turboca.txt ql/baseq3/
 RUN chown quake:quake ql/baseq3/mappool_turboca.txt
 COPY turboca.factories ql/baseq3/scripts/
 RUN chown -R quake:quake ql/baseq3/scripts
+COPY workshop.txt ql/baseq3/
+RUN chown quake:quake ql/baseq3/workshop.txt
 COPY access.txt .quakelive/30960/baseq3/
 RUN chown -R quake:quake .quakelive
 USER quake
+
+# download the workshop items
+RUN ./steamcmd.sh +login anonymous +workshop_download_item 282440 539421606 \
+                                   +workshop_download_item 282440 539421982 \
+                                   +workshop_download_item 282440 546664071 \
+                                   +workshop_download_item 282440 545368609 +quit && \
+    mv steamapps ql/
 
 # download and install minqlx
 RUN wget https://github.com/MinoMino/minqlx/releases/download/v0.0.2/minqlx_v0.0.2.tar.gz

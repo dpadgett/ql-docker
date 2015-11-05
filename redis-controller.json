@@ -28,14 +28,22 @@
                         "containerPort":6379,
                         "protocol":"TCP"
                      }
-                  ]
+                  ],
                   "volumeMounts":[
                      {
-                        # This name must match the volumes.name below.
                         "name": "redis-persistent-storage",
-                        "mountPath": "/var/lib/redis"
+                        "mountPath": "/data"
                      }
                   ]
+               }
+            ],
+            "volumes":[
+               {
+                  "name":"redis-persistent-storage",
+                  "gcePersistentDisk":{
+                     "pdName":"redis-disk",
+                     "fsType":"ext4"
+                  }
                }
             ]
          }
