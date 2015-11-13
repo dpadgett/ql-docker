@@ -54,8 +54,8 @@ RUN ./steamcmd.sh +login anonymous +workshop_download_item 282440 539421606 \
     mv steamapps ql/
 
 # download and install minqlx
-RUN wget https://github.com/MinoMino/minqlx/releases/download/v0.0.4a/minqlx_v0.0.4a.tar.gz
-RUN cd ql && tar xzf ~/minqlx_v0.0.4a.tar.gz
+RUN wget https://github.com/MinoMino/minqlx/releases/download/v0.1.0/minqlx_v0.1.0.tar.gz
+RUN cd ql && tar xzf ~/minqlx_v0.1.0.tar.gz
 RUN cd ql && git clone https://github.com/MinoMino/minqlx-plugins.git
 COPY install_minqlx_plugins.sh ./
 USER root
