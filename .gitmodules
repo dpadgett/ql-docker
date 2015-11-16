@@ -1,0 +1,6 @@
+[submodule "minqlx-plugins"]
+	path = minqlx-plugins
+	url = https://github.com/MinoMino/minqlx-plugins.git
+[submodule "Quake-Live"]
+	path = Quake-Live
+	url = https://github.com/tjone270/Quake-Live.git
