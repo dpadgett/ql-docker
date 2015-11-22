@@ -7,7 +7,7 @@ RUN apt-get update
 RUN apt-get install -y libc6:i386 libstdc++6:i386 wget software-properties-common
 RUN add-apt-repository ppa:fkrull/deadsnakes
 RUN apt-get update
-RUN apt-get install -y python3.5 python3.5-dev build-essential
+RUN apt-get install -y python3.5 python3.5-dev build-essential libzmq3-dev
 
 RUN useradd -ms /bin/bash quake
 
@@ -44,51 +44,17 @@ COPY workshop.txt ql/baseq3/
 RUN chown quake:quake ql/baseq3/workshop.txt
 COPY access.txt .quakelive/30960/baseq3/
 RUN chown -R quake:quake .quakelive
+COPY download-workshop.sh ./
+RUN chown quake:quake download-workshop.sh
 USER quake
 
 # download the workshop items
-RUN ./steamcmd.sh \
-    +login anonymous \
-    +workshop_download_item 282440 539421606 \
-    +workshop_download_item 282440 539421982 \
-    +workshop_download_item 282440 546664071 \
-    +workshop_download_item 282440 545368609 \
-    +workshop_download_item 282440 550850908 \
-    +workshop_download_item 282440 550843679 \
-    +workshop_download_item 282440 551678612 \
-    +workshop_download_item 282440 551367534 \
-    +workshop_download_item 282440 550575965 \
-    +workshop_download_item 282440 549447613 \
-    +workshop_download_item 282440 551699225 \
-    +workshop_download_item 282440 547440173 \
-    +workshop_download_item 282440 542684362 \
-    +workshop_download_item 282440 549208258 \
-    +workshop_download_item 282440 550003921 \
-    +workshop_download_item 282440 550674410 \
-    +workshop_download_item 282440 551229107 \
-    +workshop_download_item 282440 544872333 \
-    +workshop_download_item 282440 544276062 \
-    +workshop_download_item 282440 546209430 \
-    +workshop_download_item 282440 546895198 \
-    +workshop_download_item 282440 546129401 \
-    +workshop_download_item 282440 545699336 \
-    +workshop_download_item 282440 546960020 \
-    +workshop_download_item 282440 547252823 \
-    +workshop_download_item 282440 553088484 \
-    +workshop_download_item 282440 553095317 \
-    +workshop_download_item 282440 550566693 \
-    +workshop_download_item 282440 550747161 \
-    +workshop_download_item 282440 551148976 \
-    +workshop_download_item 282440 547937675 \
-    +workshop_download_item 282440 552722973 \
-    +workshop_download_item 282440 547481475 \
-    +workshop_download_item 282440 549600167 \
-    +quit && \
-    mv steamapps ql/
+RUN ./download-workshop.sh
 
-# download and install minqlx
-RUN wget https://github.com/MinoMino/minqlx/releases/download/v0.1.0/minqlx_v0.1.0.tar.gz
-RUN cd ql && tar xzf ~/minqlx_v0.1.0.tar.gz
+# download and install latest minqlx
+# http://stackoverflow.com/a/26738019
+RUN wget -O - https://api.github.com/repos/MinoMino/minqlx/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4 | xargs wget
+RUN cd ql && tar xzf ~/minqlx_v*.tar.gz
 USER root
 COPY minqlx-plugins ql/minqlx-plugins
 COPY Quake-Live/minqlx-plugins ql/minqlx-plugins
