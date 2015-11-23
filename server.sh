@@ -1,6 +1,6 @@
 #!/bin/bash
-gameport=${gameport:-'30960'}
-rconport=${rconport:-'31960'}
+gameport=${gameport:-'27960'}
+rconport=${rconport:-'28960'}
 
 location=${location:-'US Central'}
 name=${name:-"tBA* Turbo CA [$location]"}
