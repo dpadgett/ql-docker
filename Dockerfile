@@ -42,7 +42,7 @@ COPY turboca.factories ql/baseq3/scripts/
 RUN chown -R quake:quake ql/baseq3/scripts
 COPY workshop.txt ql/baseq3/
 RUN chown quake:quake ql/baseq3/workshop.txt
-COPY access.txt .quakelive/30960/baseq3/
+COPY access.txt .quakelive/27960/baseq3/
 RUN chown -R quake:quake .quakelive
 COPY download-workshop.sh ./
 RUN chown quake:quake download-workshop.sh
@@ -63,7 +63,7 @@ RUN cd ql && ~/install_minqlx_plugins.sh
 RUN chown -R quake:quake ql/
 USER quake
 
-# ports to connect to: 27960 is udp, 28960 is tcp
-EXPOSE 30960 31960
+# ports to connect to: 27960 is udp and tcp, 28960 is tcp
+EXPOSE 27960 28960
 
 CMD ql/server.sh 0
