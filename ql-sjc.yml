@@ -1,0 +1,21 @@
+ql-docker-sjc:
+  image: dpadgett/ql-docker
+  links:
+    - "redis-sjc:redis"
+  ports:
+    - "27960:27960/udp"
+    - "27960:27960/tcp"
+  restart: always
+  environment:
+    - "gameport=27960"
+    - "location=US West"
+  tags:
+    - sjc
+redis-sjc:
+  image: redis
+  restart: always
+  volumes:
+    - /home/dan/ql-redis:/data
+  tags:
+    - sjc
+
