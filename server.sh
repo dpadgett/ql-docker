@@ -19,5 +19,5 @@ stdbuf -oL -eL /home/${USER}/Steam/steamapps/common/Quake\ Live\ Dedicated\ Serv
     +set zmq_rcon_port $rconport \
     +set zmq_stats_enable 1 \
     +set zmq_stats_password "stats" \
-    +set zmq_stats_port $gameport
-
+    +set zmq_stats_port $gameport \
+    +set sv_tags "$tags"
