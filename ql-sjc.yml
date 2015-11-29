@@ -9,6 +9,7 @@ ql-docker-sjc:
   environment:
     - "gameport=27960"
     - "location=US West"
+    - "tags=tBA*,turbo,pql,US West,San Jose"
   tags:
     - sjc
 redis-sjc:
@@ -18,4 +19,3 @@ redis-sjc:
     - /home/dan/ql-redis:/data
   tags:
     - sjc
-

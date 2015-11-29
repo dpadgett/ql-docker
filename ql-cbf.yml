@@ -1,21 +1,21 @@
-ql-docker-rbx:
+ql-docker-cbf:
   image: dpadgett/ql-docker
   links:
-    - "redis-rbx:redis"
+    - "redis-cbf:redis"
   ports:
     - "27960:27960/udp"
     - "27960:27960/tcp"
   restart: always
   environment:
     - "gameport=27960"
-    - "location=France"
-    - "tags=tBA*,turbo,pql,France,Roubaix"
+    - "location=US Central"
+    - "tags=tBA*,turbo,pql,US Central,Council Bluffs"
   tags:
-    - rbx
-redis-rbx:
+    - cbf
+redis-cbf:
   image: redis
   restart: always
   volumes:
     - /home/dan/ql-redis:/data
   tags:
-    - rbx
+    - cbf

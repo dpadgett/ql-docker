@@ -1,0 +1,10 @@
+ql-docker-akl:
+  image: dpadgett/ql-docker-update
+  restart: no
+  environment:
+    - "hostname=akl.jactf.com"
+    - "username=quake"
+  tags:
+    - cbf
+  volumes:
+    - /home/dan/.ssh_docker:/home/quake/.ssh
