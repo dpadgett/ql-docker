@@ -1,6 +1,6 @@
 #!/bin/bash
 
-wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+wget https://bootstrap.pypa.io/get-pip.py
 python3.5 get-pip.py
 rm get-pip.py
 python3.5 -m easy_install pyzmq hiredis
