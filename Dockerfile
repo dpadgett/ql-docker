@@ -1,12 +1,12 @@
 # Dockerfile to run a linux quake live server
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Dan Padgett <dumbledore3@gmail.com>
 
 RUN dpkg --add-architecture i386
 RUN apt-get update
 RUN apt-get install -y libc6:i386 libstdc++6:i386 wget software-properties-common
-RUN add-apt-repository ppa:fkrull/deadsnakes
-RUN apt-get update
+#RUN add-apt-repository ppa:fkrull/deadsnakes
+#RUN apt-get update
 RUN apt-get install -y python3.5 python3.5-dev build-essential libzmq3-dev
 
 RUN useradd -ms /bin/bash quake
@@ -39,6 +39,10 @@ RUN chown quake:quake ql/baseq3/server.cfg
 COPY mappool_turboca.txt ql/baseq3/
 RUN chown quake:quake ql/baseq3/mappool_turboca.txt
 COPY turboca.factories ql/baseq3/scripts/
+COPY vpql.factories ql/baseq3/scripts/
+COPY slojo.factories ql/baseq3/scripts/
+COPY ctrl.factories ql/baseq3/scripts/
+COPY dft.factories ql/baseq3/scripts/
 RUN chown -R quake:quake ql/baseq3/scripts
 COPY workshop.txt ql/baseq3/
 RUN chown quake:quake ql/baseq3/workshop.txt
@@ -58,6 +62,7 @@ RUN cd ql && tar xzf ~/minqlx_v*.tar.gz
 USER root
 COPY minqlx-plugins ql/minqlx-plugins
 COPY Quake-Live/minqlx-plugins ql/minqlx-plugins
+COPY factory_lock.py ql/minqlx-plugins/
 COPY install_minqlx_plugins.sh ./
 RUN cd ql && ~/install_minqlx_plugins.sh
 RUN chown -R quake:quake ql/

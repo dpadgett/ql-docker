@@ -7,4 +7,4 @@ for item in $(cat ql/baseq3/workshop.txt | grep -v "^#"); do
 done
 
 set -x
-./steamcmd.sh +login anonymous $items +quit && mv steamapps ql/
+./steamcmd.sh +login anonymous $items +quit && mkdir ql/steamapps && mv Steam/steamapps/workshop ql/steamapps/workshop
